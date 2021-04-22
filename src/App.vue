@@ -2,45 +2,70 @@
   <v-app id="inspire">
     <v-navigation-drawer
       v-model="drawer"
-      app
+      :clipped="$vuetify.breakpoint.mdAndUp"
     >
-      <v-sheet
-        color="grey lighten-4"
-        class="pa-4"
-      >
-        <v-avatar
-          class="mb-4"
-          color="grey darken-1"
-          size="64"
-        ></v-avatar>
-        <div>john@vuetifyjs.com</div>
-      </v-sheet>
+      <v-list dense>
+        <template v-for="item in items">
+          <v-layout
+            v-if="item.heading"
+            :key="item.heading"
+            row
+            align-center
+          >
+            <v-flex xs6>
+              <v-subheader v-if="item.heading">
+                {{ item.heading }}
+              </v-subheader>
+            </v-flex>   
+          </v-layout>
 
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item
-          v-for="[icon, text, to] in links"
-          :key="icon"
-          :to="to"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        </template>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app>
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
+
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.mdAndUp"
+      app
+      color="blue darken-3"
+      dark
+    >
+      <v-toolbar-title
+        style="width: 300px"
+        class="ml-0 pl-3"
+      >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <router-link tag="span" class="hidden-sm-and-down" to="/">Google Contacts</router-link>
+      </v-toolbar-title>
+      <v-text-field
+        flat
+        solo-inverted
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        label="Search"
+        class="hidden-sm-and-down"
+      ></v-text-field>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-apps</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        large
+      >
+        <v-avatar
+          size="32px"
+          item
+        >
+          <v-img
+            src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
+            alt="Vuetify"
+          >
+          </v-img></v-avatar>
+      </v-btn>
     </v-app-bar>
-    <v-main>
-      <router-view></router-view>
-    </v-main>
   </v-app>
 </template>
 
@@ -52,6 +77,38 @@
         ['mdi-inbox-arrow-down', '主页', '/'],
         ['mdi-send', '关于', '/about'],
       ],
+      items: [
+      { icon: 'contacts', text: 'Contacts', to: '/contacts' },
+      { icon: 'history', text: 'Frequently contacted', to: '/page1' },
+      { icon: 'content_copy', text: 'Duplicates', to: '/404' },
+      {
+        icon: 'keyboard_arrow_up',
+        'icon-alt': 'keyboard_arrow_down',
+        text: 'Labels',
+        model: true,
+        children: [
+          { icon: 'add', text: 'Create label' },
+        ],
+      },
+      {
+        icon: 'keyboard_arrow_up',
+        'icon-alt': 'keyboard_arrow_down',
+        text: 'More',
+        model: false,
+        children: [
+          { text: 'Import' },
+          { text: 'Export' },
+          { text: 'Print' },
+          { text: 'Undo changes' },
+          { text: 'Other contacts' },
+        ],
+      },
+      { icon: 'settings', text: 'Settings' },
+      { icon: 'chat_bubble', text: 'Send feedback' },
+      { icon: 'help', text: 'Help' },
+      { icon: 'phonelink', text: 'App downloads' },
+      { icon: 'keyboard', text: 'Go to the old version' },
+    ],
     }),
   }
 </script>
