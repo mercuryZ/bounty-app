@@ -1,27 +1,12 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer
-      fixed
-      clipped
-      v-model="drawer"
-      temporary
-    >
-      <v-list-item>
-        <v-list-item-content class="white">
-          <v-list-item-title class="title">
-            Application
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            subtext
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-    </v-navigation-drawer>
     <v-app-bar  
       app
-      clipped
+      clipped-left
       color="blue darken-3"
       dark
+      elevation="5"
+      flat
     >
       <v-toolbar-title
         style="width: 300px"
@@ -60,6 +45,22 @@
         <v-icon>mdi-home</v-icon>
       </v-btn>
     </v-app-bar>
+    <v-navigation-drawer
+      app
+      clipped
+      v-model="drawer"
+    >
+      <v-list-item>
+        <v-list-item-content class="white">
+          <v-list-item-title class="title">
+            Application
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            subtext
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+    </v-navigation-drawer>
 
   </v-app>
 </template>
@@ -67,7 +68,7 @@
 <script>
   export default {
     data: () => ({
-      drawer: null,
+      drawer: false,
       links: [
         ['mdi-inbox-arrow-down', '主页', '/'],
         ['mdi-send', '关于', '/about'],
